@@ -1,6 +1,6 @@
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(2,3,4,9,10,11,12);
+LiquidCrystal lcd(2,3,4,9,10,11,12); //LiquidCrystal(rs, rw, enable, d4, d5, d6, d7) 
 long time;
 long msec, sec, minute;
 
