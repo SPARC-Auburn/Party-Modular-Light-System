@@ -42,15 +42,18 @@ const String MODE_STRING[] = {"OFF      ", "ON       ",
 
 void initScreen()
 {
-  lcd.begin(16,2);
-  lcd.clear();
+  mySerial.begin(9600);
+  delay(100);
+  mySerial.write(12);                 // Clear             
+  mySerial.write(17);                 // Turn backlight on
+  delay(5);                           // Required delay
   printScreen();
 }
 
 void printScreen()
 {
-  lcd.clear();
-  lcd.home();
+  mySerial.write(12);                 // Clear   
+  mySerial.write(128);                 // Move to 0,0 -> Home
   switch (menuContext) {
     case 0:
       switch (menuNum) {
@@ -107,45 +110,45 @@ void printScreen()
 
 //begin ugly boring print functions:
 void print0_0()
-{ lcd.print(LINE_0_0); lcd.setCursor(0,1); lcd.print(LINE_0_1); }
+{ mySerial.print(LINE_0_0); mySerial.write(148); mySerial.print(LINE_0_1); }
 void print0_1()
-{ lcd.print(LINE_0_1); lcd.setCursor(0,1); lcd.print(LINE_0_2); }
+{ mySerial.print(LINE_0_1); mySerial.write(148); mySerial.print(LINE_0_2); }
 void print0_2()
-{ lcd.print(LINE_0_2); lcd.setCursor(0,1); lcd.print(LINE_0_0); }
+{ mySerial.print(LINE_0_2); mySerial.write(148); mySerial.print(LINE_0_0); }
 void print1_0()
-{ lcd.print(LINE_1_0); update1_0(); }
+{ mySerial.print(LINE_1_0);  update1_0();} 
 void print1_1()
-{ lcd.print(LINE_1_1); update1_1(); }
+{ mySerial.print(LINE_1_1); update1_1(); } 
 void print1_2()
-{ lcd.print(LINE_1_2); update1_2(); lcd.print(" / 254"); }
+{ mySerial.print(LINE_1_2); update1_2(); mySerial.print(" / 254");}  
 void print1_3()
-{ lcd.print(LINE_1_3); update1_3(); }
+{ mySerial.print(LINE_1_3);  update1_3();} 
 void print1_4()
-{ lcd.print(LINE_1_4); update1_4(); }
+{ mySerial.print(LINE_1_4);  update1_4();}
 void print2_0()
-{ lcd.print(LINE_2_0); update2_0(); }
+{ mySerial.print(LINE_2_0); update2_0(); }
 void print2_1()
-{ lcd.print(LINE_2_1); update2_1(); }
+{ mySerial.print(LINE_2_1); update2_1(); }
 void print2_2()
-{ lcd.print(LINE_2_2); update2_2(); }
+{ mySerial.print(LINE_2_2); update2_2(); }
 void print2_3()
-{ lcd.print(LINE_2_3); update2_3(); }
+{ mySerial.print(LINE_2_3); update2_3(); }
 void print3_0()
-{ lcd.print(LINE_3_0); lcd.setCursor(0,1); lcd.print(LINE_3_1); }
+{ mySerial.print(LINE_3_0); mySerial.write(148); mySerial.print(LINE_3_1); }  
 void print3_1()
-{ lcd.print(LINE_3_1); lcd.setCursor(0,1); lcd.print(LINE_3_2); }
+{ mySerial.print(LINE_3_1); mySerial.write(148); mySerial.print(LINE_3_2); }
 void print3_2()
-{ lcd.print(LINE_3_2); lcd.setCursor(0,1); lcd.print(LINE_3_3); }
+{ mySerial.print(LINE_3_2); mySerial.write(148); mySerial.print(LINE_3_3); }
 void print3_3()
-{ lcd.print(LINE_3_3); lcd.setCursor(0,1); lcd.print(LINE_3_4); }
+{ mySerial.print(LINE_3_3); mySerial.write(148); mySerial.print(LINE_3_4); }
 void print3_4()
-{ lcd.print(LINE_3_4); lcd.setCursor(0,1); lcd.print(LINE_3_5); }
+{ mySerial.print(LINE_3_4); mySerial.write(148); mySerial.print(LINE_3_5); }
 void print3_5()
-{ lcd.print(LINE_3_5); lcd.setCursor(0,1); lcd.print(LINE_3_0); }
+{ mySerial.print(LINE_3_5); mySerial.write(148); mySerial.print(LINE_3_0); }
 void printCursor()
-{ if (menuCursor == 0) {lcd.setCursor(0,0);}
-  else {lcd.setCursor(0,1);}
-  lcd.print(CURSOR); }
+{ if (menuCursor == 0) {mySerial.write(128);}
+  else {mySerial.write(148);}
+  mySerial.print(CURSOR); }
 //end ugly boring print functions
         
         
@@ -181,78 +184,78 @@ void updateScreen()
 }
 
 void update1_0()
-{ lcd.setCursor(4,1);
-  lcd.print(MODE_STRING[ch1Mode]);
+{ mySerial.write(152);
+  mySerial.print(MODE_STRING[ch1Mode]);
 }
 void update1_1()
-{ lcd.setCursor(4,1);
-  lcd.print(MODE_STRING[ch2Mode]);
+{ mySerial.write(152);
+  mySerial.print(MODE_STRING[0]);
 }
 void update1_2()
-{ lcd.setCursor(4,1);
+{ mySerial.write(152);
   if (brightness >= 100) {  } //nothing
-  else if (brightness >= 10) { lcd.print("0"); }
-  else { lcd.print("00"); }
-  lcd.print(brightness, DEC);
+  else if (brightness >= 10) { mySerial.print("0"); }
+  else { mySerial.print("00"); }
+  mySerial.print(brightness, DEC);
 }
 void update1_3()
-{ lcd.setCursor(4,1);
-  lcd.print((onTime/10), DEC);
-  lcd.print(".");
-  lcd.print((onTime%10), DEC);
-  lcd.print(" s");
+{ mySerial.write(152);
+  mySerial.print((onTime/10), DEC);
+  mySerial.print(".");
+  mySerial.print((onTime%10), DEC);
+  mySerial.print(" s");
 }
 void update1_4()
-{ lcd.setCursor(4,1);
-  lcd.print((offTime/10), DEC);
-  lcd.print(".");
-  lcd.print((offTime%10), DEC);
-  lcd.print(" s");
+{ mySerial.write(152);
+  mySerial.print((offTime/10), DEC);
+  mySerial.print(".");
+  mySerial.print((offTime%10), DEC);
+  mySerial.print(" s");
 }
 void update2_0()
-{ lcd.setCursor(4,1);
-  lcd.print((v12 / 100), DEC);
-  lcd.print(".");
-  lcd.print((v12 % 100)/10, DEC);
-  lcd.print((v12 % 10), DEC);
-  lcd.print(" V");
+{ mySerial.write(152);
+  mySerial.print((v12 / 100), DEC);
+  mySerial.print(".");
+  mySerial.print((v12 % 100)/10, DEC);
+  mySerial.print((v12 % 10), DEC);
+  mySerial.print(" V");
 }
 void update2_1()
-{ lcd.setCursor(4,1);
-  lcd.print((v5 / 100), DEC);
-  lcd.print(".");
-  lcd.print((v5 % 100)/10, DEC);
-  lcd.print((v5 % 10), DEC);
-  lcd.print(" V");
+{ mySerial.write(152);
+  mySerial.print((v5 / 100), DEC);
+  mySerial.print(".");
+  mySerial.print((v5 % 100)/10, DEC);
+  mySerial.print((v5 % 10), DEC);
+  mySerial.print(" V");
 }
 void update2_2()
-{ lcd.setCursor(4,1);
-  lcd.print((iCh1 / 100), DEC);
-  lcd.print(".");
-  lcd.print((iCh1 % 100)/10, DEC);
-  lcd.print((iCh1 % 10), DEC);
-  lcd.print(" A");
+{ mySerial.write(152);
+  mySerial.print((iCh1 / 100), DEC);
+  mySerial.print(".");
+  mySerial.print((iCh1 % 100)/10, DEC);
+  mySerial.print((iCh1 % 10), DEC);
+  mySerial.print(" A");
 }
 void update2_3()
-{ lcd.setCursor(4,1);
-  lcd.print((iCh2 / 100), DEC);
-  lcd.print(".");
-  lcd.print((iCh2 % 100)/10, DEC);
-  lcd.print((iCh2 % 10), DEC);
-  lcd.print(" A");
+{ mySerial.write(152);
+  mySerial.print((iCh2 / 100), DEC);
+  mySerial.print(".");
+  mySerial.print((iCh2 % 100)/10, DEC);
+  mySerial.print((iCh2 % 10), DEC);
+  mySerial.print(" A");
 }
 
 void drawSelection()
 {
-  lcd.setCursor(0,1);
-  lcd.print(CURSOR);
-  lcd.print(CURSOR);
+  mySerial.write(148);
+  mySerial.print(CURSOR);
+  mySerial.print(CURSOR);
 }
 
 void drawDeselection()
 {
-  lcd.setCursor(0,1);
-  lcd.print("  ");
+  mySerial.write(148);
+  mySerial.print("  ");
   updateScreen();
 }
 

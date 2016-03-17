@@ -16,8 +16,9 @@
   *     
    ***********************************************************/
 
-#include <LiquidCrystal.h>
+
 #include <EEPROM.h>
+#include <SoftwareSerial.h>
 
 //timing
 #define FLOP_TIME 4000 //in us
@@ -37,13 +38,7 @@ pin btnDown  = 10;//8;  ///pin numbers
 pin btnEnter = 12;//6;  // make sure to
 pin btnBack  = 13; // set correctly 
 
-pin lcdRS    = 2;
-pin lcdRW    = 3;
-pin lcdEN    = 4;
-pin lcdD4    = 8;//9;
-pin lcdD5    = 7;//10;
-pin lcdD6    = 6;//11;
-pin lcdD7    = 5;//12;
+pin TxPin      = 6;
 
 pin hbEN     = 9; //must be PWM-able. WARNING: if you change this, you must change the timer registers
                     // used in checkEnSwitch()
@@ -56,7 +51,7 @@ pin statI1   = A4; //Ch A current
 pin statI2   = A5; //Ch B current
 
    
-LiquidCrystal lcd(lcdRS,lcdRW,lcdEN,lcdD4,lcdD5,lcdD6,lcdD7);
+SoftwareSerial mySerial = SoftwareSerial(255, TxPin);
 char menuContext, menuNum, menuSelect, menuCursor;
 int ch1Mode, ch2Mode, brightness, onTime, offTime; //settings
 int v12, v5, iCh1, iCh2;
@@ -86,8 +81,6 @@ long changeTime = 0; //timestamp (in ms) of the last HB switch
    
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("go");
   initButtons();
   initScreen();
   loadSettings();

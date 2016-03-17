@@ -13,9 +13,9 @@ void setup() {
   mySerial.write(12);                 // Clear             
   mySerial.write(17);                 // Turn backlight on
   delay(5);                           // Required delay
-  mySerial.print("Hello, world...");  // First line
+  mySerial.print("Hello");  // First line
   mySerial.write(13);                 // Form feed
-  mySerial.print("from Parallax!");   // Second line
+  mySerial.print("This is Matthew");   // Second line
   mySerial.write(212);                // Quarter note
   mySerial.write(220);                // A tone
   delay(3000);                        // Wait 3 seconds
