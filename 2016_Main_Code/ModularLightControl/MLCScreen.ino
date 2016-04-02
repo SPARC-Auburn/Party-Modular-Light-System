@@ -13,7 +13,7 @@
    ***************************************************/
    
 const String LINE_0_0 = "  Settings";
-const String LINE_0_1 = "  Statistics";
+const String LINE_0_1 = "  Mode";
 const String LINE_0_2 = "  About";
 
 const String LINE_1_0 = " Channel 1 mode:";
@@ -22,10 +22,10 @@ const String LINE_1_2 = " Brightness:";
 const String LINE_1_3 = " Blink On-time:";
 const String LINE_1_4 = " Blink Off-time:";
 
-const String LINE_2_0 = "12V rail:";
-const String LINE_2_1 = "5V rail:";
-const String LINE_2_2 = "Ch.1 current:";
-const String LINE_2_3 = "Ch.2 current:";
+const String LINE_2_0 = "  Blink";
+const String LINE_2_1 = "  Only 1 On";
+const String LINE_2_2 = "  Only 2 On";
+const String LINE_2_3 = "  Alternate";
 
 const String LINE_3_0 = "Modular Light";
 const String LINE_3_1 = "Controller";
@@ -88,8 +88,10 @@ void printScreen()
         case 2:
           print2_2(); break;
         case 3:
-          print2_3(); break;
-      } break;
+          print2_2(); break;
+      } 
+      printCursor();
+      break;
     case 3:
       switch (menuNum) {
         case 0:
@@ -126,13 +128,13 @@ void print1_3()
 void print1_4()
 { mySerial.print(LINE_1_4);  update1_4();}
 void print2_0()
-{ mySerial.print(LINE_2_0); update2_0(); }
+{ mySerial.print(LINE_2_0);}
 void print2_1()
-{ mySerial.print(LINE_2_1); update2_1(); }
+{ mySerial.print(LINE_2_1);}
 void print2_2()
-{ mySerial.print(LINE_2_2); update2_2(); }
+{ mySerial.print(LINE_2_2);}
 void print2_3()
-{ mySerial.print(LINE_2_3); update2_3(); }
+{ mySerial.print(LINE_2_3);}
 void print3_0()
 { mySerial.print(LINE_3_0); mySerial.write(148); mySerial.print(LINE_3_1); }  
 void print3_1()
@@ -170,16 +172,7 @@ void updateScreen()
           update1_4(); break;
       } break;
     case 2:
-      switch (menuNum) {
-        case 0:
-          update2_0(); break;
-        case 1:
-          update2_1(); break;
-        case 2:
-          update2_2(); break;
-        case 3:
-          update2_3(); break;
-      } break;
+       break;
   }
 }
 

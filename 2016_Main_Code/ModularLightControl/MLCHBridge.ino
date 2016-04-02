@@ -46,12 +46,14 @@ void initHBridge()
 //uses the brightness global variable
 void updateBrightness()
 {
-  if (((doubleFlag==0)||(blinkFlag==0)) //even if double, do normal if there's no blink
+  if (((doubleFlag==0)||(blinkFlag==0))  //even if double, do normal if there's no blink
      || ((blinkFlag==1)&&(ts1==onFlop)) //or if in onFlop mode
-     || ((blinkFlag==2)&&(ts2==onFlop)))
+     || ((blinkFlag==2)&&(ts2==onFlop))) {
     analogWrite(hbEN, 255-brightness);
-  else
+  }
+  else {
     analogWrite(hbEN, (255-(brightness/2)));
+  }
     
 }
 
@@ -182,12 +184,15 @@ void updateHBSettings()
 
 void updateHB()
 {
+   
   if(blinkFlag == 0) //no blinking
   {
+   
     if (ts1 == onFlop)
       HBFlop();
   } else if (blinkFlag == 1)
   {
+    HBOn2();
     if (((int)(millis()-blink1))>0) //is on time done?
     {
       blink1 = blink2 + ton;
@@ -213,6 +218,7 @@ void updateHB()
     } //end if(ontime done)
     else if (ts1 == onFlop) //not done, but flop
     {
+      
       HBFlop();
     }
   } else if (blinkFlag == 2)

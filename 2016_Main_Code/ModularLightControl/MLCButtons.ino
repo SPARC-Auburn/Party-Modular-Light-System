@@ -102,7 +102,14 @@ void checkEnter()
       menuContext = ((menuNum + menuCursor) % 3 ) + 1; //math!
       menuNum = 0;
       printScreen();
-    } else if (!menuSelect) { //other menus, but not selected
+    } 
+    else if (!menuSelect) 
+    {
+      menuContext = ((menuNum + menuCursor) % 3 ) + 1; //math!
+      menuNum = 0;
+      printScreen();
+    }
+    else if (!menuSelect) { //other menus, but not selected
       if (menuContext == 1) //settings menu
       {
         menuSelect = true;
